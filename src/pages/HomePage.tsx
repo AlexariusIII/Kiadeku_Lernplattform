@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import KiadekuLogo from "../assets/kiadeku_logo_final.svg";
 import DekubitusSymbol from "../assets/symbols/dekubitus_symbol.png";
+import IADSymbol from "../assets/symbols/iad_symbol.png";
 
 const HomePage = () => (
   <>
@@ -55,9 +56,7 @@ const HomePage = () => (
             
             <div className="bg-gradient-to-br from-teal-50/80 via-white/90 to-teal-100/60 p-8 text-center relative z-10">
               <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-200">
-                <svg className="w-12 h-12 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                </svg>
+                <img src={IADSymbol} alt="IAD Symbol" className="w-14 h-14 object-contain drop-shadow-lg" />
               </div>
               <h3 className="text-2xl font-black text-gray-800 mb-3 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">IAD</h3>
               <p className="text-gray-600 leading-relaxed">Erfahren Sie alles über Inkontinenz-assoziierte Dermatitis: Erkennung und Management.</p>
