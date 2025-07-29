@@ -34,8 +34,8 @@ const HomePage = () => (
             <div className="absolute inset-0 bg-gradient-to-br from-teal-50/50 via-transparent to-blue-50/30 opacity-60"></div>
             
             <div className="bg-gradient-to-br from-teal-50/80 via-white/90 to-teal-100/60 p-8 text-center relative z-10">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-200">
-                <img src={DekubitusSymbol} alt="Dekubitus Symbol" className="w-14 h-14 object-contain drop-shadow-lg" />
+              <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-200">
+                <img src={DekubitusSymbol} alt="Dekubitus Symbol" className="w-20 h-20 object-contain drop-shadow-lg" />
               </div>
               <h3 className="text-2xl font-black text-gray-800 mb-3 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">Dekubitus</h3>
               <p className="text-gray-600 leading-relaxed">Verstehen Sie Druckgeschwüre: Ursachen, Stadien, Prävention und Behandlung.</p>
@@ -55,8 +55,8 @@ const HomePage = () => (
             <div className="absolute inset-0 bg-gradient-to-br from-teal-50/50 via-transparent to-blue-50/30 opacity-60"></div>
             
             <div className="bg-gradient-to-br from-teal-50/80 via-white/90 to-teal-100/60 p-8 text-center relative z-10">
-              <div className="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-200">
-                <img src={IADSymbol} alt="IAD Symbol" className="w-14 h-14 object-contain drop-shadow-lg" />
+              <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-teal-500 via-teal-600 to-teal-700 rounded-3xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-200">
+                <img src={IADSymbol} alt="IAD Symbol" className="w-20 h-20 object-contain drop-shadow-lg" />
               </div>
               <h3 className="text-2xl font-black text-gray-800 mb-3 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">IAD</h3>
               <p className="text-gray-600 leading-relaxed">Erfahren Sie alles über Inkontinenz-assoziierte Dermatitis: Erkennung und Management.</p>
