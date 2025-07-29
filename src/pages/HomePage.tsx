@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import KiadekuLogo from "../assets/kiadeku_logo_final.svg";
 import DekubitusSymbol from "../assets/symbols/dekubitus_symbol.png";

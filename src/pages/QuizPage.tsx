@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import dekubitus1 from '../assets/dekubitus1.jpg';
 import dekubitus2 from '../assets/dekubitus2.jpg';
 import dekubitus3 from '../assets/dekubitus3.jpg';
-import dekubitus4 from '../assets/dekubitus4.jpg';
 import iad1A from '../assets/iad1A.jpeg';
-import iad1B from '../assets/iad1B.jpeg';
 import iad2A from '../assets/iad2A.jpeg';
-import iad2B from '../assets/iad2B.jpeg';
 
 const dekubitusCategories = [
   { value: "Dekubitus 1", label: "Kategorie 1" },
