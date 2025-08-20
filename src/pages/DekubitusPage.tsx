@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import dekubitus1 from '../assets/dekubitus1.jpg';
-import dekubitus2 from '../assets/dekubitus2.jpg';
-import dekubitus3 from '../assets/dekubitus3.jpg';
-import dekubitus4 from '../assets/dekubitus4.jpg';
+import dekubitus1 from '../assets/wound_images/ed_site/dekubitus_1_055575_.jpg';
+import dekubitus2 from '../assets/wound_images/ed_site/dekubitus_2_118804_.jpg';
+import dekubitus3 from '../assets/wound_images/ed_site/dekubitus_3_024444_.jpg';
+import dekubitus4 from '../assets/wound_images/ed_site/dekubitus_4_166455_.jpg';
+
 
 const categories = [
   {

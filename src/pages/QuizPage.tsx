@@ -1,9 +1,4 @@
 import React, { useState } from "react";
-import dekubitus1 from '../assets/dekubitus1.jpg';
-import dekubitus2 from '../assets/dekubitus2.jpg';
-import dekubitus3 from '../assets/dekubitus3.jpg';
-import iad1A from '../assets/iad1A.jpeg';
-import iad2A from '../assets/iad2A.jpeg';
 
 const dekubitusCategories = [
   { value: "Dekubitus 1", label: "Kategorie 1" },
@@ -18,19 +13,57 @@ const iadCategories = [
   { value: "IAD 2B", label: "2B" },
 ];
 
-const quizImages = [
-  { image: dekubitus1, answer: "Dekubitus 1" },
-  { image: iad1A, answer: "IAD 1A" },
-  { image: dekubitus2, answer: "Dekubitus 2" },
-  { image: iad2A, answer: "IAD 2A" },
-  { image: dekubitus3, answer: "Dekubitus 3" },
-];
+type QuizItem = { image: string; answers: string[] };
+
+const quizImageModules = import.meta.glob('../assets/wound_images/quiz/*.{jpg,jpeg,png,svg}', { eager: true }) as Record<string, { default: string }>;
+
+function parseAnswersFromFilename(filePath: string): string[] {
+  const fileName = filePath.split('/').pop() || '';
+  const answers: string[] = [];
+
+  const dekMatch = /^dekubitus_(\d)/i.exec(fileName);
+  if (dekMatch) {
+    answers.push(`Dekubitus ${dekMatch[1]}`);
+  }
+
+  const iadMatch = /^iad_(\d[ab]?)/i.exec(fileName);
+  if (iadMatch) {
+    const code = iadMatch[1].toUpperCase();
+    answers.push(`IAD ${code}`);
+  }
+
+  const plusDekMatch = /dec(\d)/i.exec(fileName);
+  if (plusDekMatch) {
+    const stage = plusDekMatch[1];
+    const value = `Dekubitus ${stage}`;
+    if (!answers.includes(value)) answers.push(value);
+  }
+
+  return answers;
+}
+
+const quizImages: QuizItem[] = Object.entries(quizImageModules)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, mod]) => {
+    const src = mod.default;
+    return { image: src, answers: parseAnswersFromFilename(path) };
+  })
+  .filter(item => item.answers.length > 0);
+
+function shuffleArray<T>(items: T[]): T[] {
+  const arr = items.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 
 type QuizAnswer = { main: 'Dekubitus' | 'IAD' | null; category: string | null };
-const initialAnswers: QuizAnswer[] = quizImages.map(() => ({ main: null, category: null }));
 
 const QuizPage: React.FC = () => {
-  const [userAnswers, setUserAnswers] = useState<QuizAnswer[]>(initialAnswers);
+  const [shuffledImages, setShuffledImages] = useState<QuizItem[]>(() => shuffleArray(quizImages));
+  const [userAnswers, setUserAnswers] = useState<QuizAnswer[]>(() => shuffledImages.map(() => ({ main: null, category: null })));
   const [showSummary, setShowSummary] = useState(false);
 
   const handleMainSelect = (idx: number, main: 'Dekubitus' | 'IAD') => {
@@ -50,7 +83,7 @@ const QuizPage: React.FC = () => {
     }
   };
 
-  const correctCount = userAnswers.filter((ans, idx) => ans.category === quizImages[idx].answer).length;
+  const correctCount = userAnswers.filter((ans, idx) => ans.category !== null && shuffledImages[idx].answers.includes(ans.category)).length;
 
   return (
     <section className="w-full max-w-4xl mx-auto px-4 text-center">
@@ -58,7 +91,7 @@ const QuizPage: React.FC = () => {
       <p className="text-lg text-gray-700 mb-8">Schau dir die Bilder an, wähle zuerst die richtige Gruppe und dann die passende Kategorie.</p>
 
       <div className="flex flex-col gap-10">
-        {quizImages.map((q, idx) => (
+        {shuffledImages.map((q, idx) => (
           <div key={idx} className="flex flex-col md:flex-row items-center bg-white rounded-xl shadow-lg p-6 gap-8">
             <img
               src={q.image}
@@ -96,8 +129,10 @@ const QuizPage: React.FC = () => {
                 </div>
               )}
               {userAnswers[idx].category !== null && (
-                <span className={`text-md font-medium ${userAnswers[idx].category === quizImages[idx].answer ? 'text-green-600' : 'text-red-500'}`}>
-                  {userAnswers[idx].category === quizImages[idx].answer ? 'Richtig!' : `Falsch! Richtige Antwort: ${quizImages[idx].answer}`}
+                <span className={`text-md font-medium ${shuffledImages[idx].answers.includes(userAnswers[idx].category!) ? 'text-green-600' : 'text-red-500'}`}>
+                  {shuffledImages[idx].answers.includes(userAnswers[idx].category!)
+                    ? 'Richtig!'
+                    : `Falsch! Richtige Antwort: ${shuffledImages[idx].answers.join(' oder ')}`}
                 </span>
               )}
             </div>
@@ -108,17 +143,22 @@ const QuizPage: React.FC = () => {
       {showSummary && (
         <div className="mt-10 p-6 bg-teal-50 rounded-xl shadow text-center">
           <h3 className="text-2xl font-bold text-teal-700 mb-2">Dein Ergebnis</h3>
-          <p className="text-lg text-gray-800 mb-2">Du hast {correctCount} von {quizImages.length} richtig beantwortet.</p>
+          <p className="text-lg text-gray-800 mb-2">Du hast {correctCount} von {shuffledImages.length} richtig beantwortet.</p>
           <ul className="mb-4 text-left mx-auto max-w-md">
-            {quizImages.map((q, idx) => (
+            {shuffledImages.map((q, idx) => (
               <li key={idx} className="mb-2">
-                <span className="font-semibold">Bild {idx + 1}:</span> Deine Antwort: <span className={userAnswers[idx].category === q.answer ? 'text-green-600' : 'text-red-500'}>{userAnswers[idx].category || '-'}</span> {userAnswers[idx].category !== q.answer && (<span className="text-gray-700">(Richtig: {q.answer})</span>)}
+                <span className="font-semibold">Bild {idx + 1}:</span> Deine Antwort: <span className={q.answers.includes(userAnswers[idx].category || '') ? 'text-green-600' : 'text-red-500'}>{userAnswers[idx].category || '-'}</span> {!q.answers.includes(userAnswers[idx].category || '') && (<span className="text-gray-700">(Richtig: {q.answers.join(' oder ')})</span>)}
               </li>
             ))}
           </ul>
           <button
             className="mt-4 px-6 py-2 rounded bg-teal-500 text-white font-bold text-lg hover:bg-teal-600 transition"
-            onClick={() => { setUserAnswers(initialAnswers); setShowSummary(false); }}
+            onClick={() => {
+              const newOrder = shuffleArray(quizImages);
+              setShuffledImages(newOrder);
+              setUserAnswers(newOrder.map(() => ({ main: null, category: null })));
+              setShowSummary(false);
+            }}
           >
             Quiz erneut starten
           </button>

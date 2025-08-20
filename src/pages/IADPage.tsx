@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import iad1A from '../assets/iad1A.jpeg';
-import iad1B from '../assets/iad1B.jpeg';
-import iad2A from '../assets/iad2A.jpeg';
-import iad2B from '../assets/iad2B.jpeg';
+import iad1A from '../assets/wound_images/ed_site/iad_1a_115677_.jpg';
+import iad1B from '../assets/wound_images/ed_site/iad_1b_406609_.jpg';
+import iad2A from '../assets/wound_images/ed_site/iad_2a_042954_.jpg';
+import iad2B from '../assets/wound_images/ed_site/iad_2b_209503_.jpg';
 
 const categories = [
   {
